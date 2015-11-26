@@ -53,11 +53,11 @@ And if we run it in the browser, it will fail because `require` is not defined i
 
 ref: [Start using ES6 with Rails today](http://blog.arkency.com/2015/05/start-using-es6-with-rails-today/)
 
-Note: I also find this post interesting after I find my second solution. [Using ES6 with Asset Pipeline on Ruby on Rails](http://nandovieira.com/using-es6-with-asset-pipeline-on-ruby-on-rails) It's still using `sprockets` together with gem and I'll discuss it later.
+Note: I also find this post interesting to make it with `gem` after I find my second solution. [Using ES6 with Asset Pipeline on Ruby on Rails](http://nandovieira.com/using-es6-with-asset-pipeline-on-ruby-on-rails) It's still using `sprockets` together with gem and I'll discuss it later.
 
 **2.** Using babel that I'm more familiar with(yes, I've looked into it and even made a moudle [babel-jsxgettext](https://github.com/fraserxu/babel-jsxgettext) using its internal parser `babylon`(with better support for JSX)) directly instead of something that I don't know well(GEM).
 
-I checked the code that Rails use to compile Coffeescirpt to JS here which is as simple as using the Coffeescript compiler somehow and transfer it into JavaScript code. https://github.com/rails/coffee-rails/blob/master/lib/rails/generators/coffee/assets/assets_generator.rb#L9
+I checked the source code that Rails use to compile Coffeescirpt to JS, which is as simple as using the Coffeescript compiler to compile JavaScript code. https://github.com/rails/coffee-rails/blob/master/lib/rails/generators/coffee/assets/assets_generator.rb#L9
 
 ```Ruby
 def copy_coffee
@@ -65,7 +65,9 @@ def copy_coffee
 end
 ```
 
-I can do the same with JavaScript!
+**I can do the same with JavaScript!**
+
+![jsatt](https://cloud.githubusercontent.com/assets/1183541/11418542/e6957884-9474-11e5-9fee-526999fc6e33.jpg)
 
 Here's the workflow.
 
@@ -83,7 +85,7 @@ Don't worry, it's JavaScript, let's figure it out.
 
 So what we will do here is to use `browserify` to make our code work with commonjs `require` and `babelify` for ES6 code.
 
-Make sure you have those packages install as well.
+Make sure you have those packages installed as well.
 
 ```
 npm install --save-dev babel-preset-es2015 babelify browserify
@@ -101,6 +103,8 @@ In case you are not familar with browserify, [here's the book](https://github.co
 
 Check the code I have in the `app/assets/babel` folder for example. It will print `Bot: yo` if you check the console.
 
+For sure that we can automate the process with `npm script` or whatever build tools, but it's not the topic here.
+
 Here's the `pros` and `cons` for these two solutions.
 
 features | GEM Way  | Node way
@@ -111,4 +115,6 @@ Compatibility with exisiting code | ✅ | ✅
 
 Both of these two solution support well with legacy code base since it keep the existing code runnig and let people to choose what code they prefer.
 
-For long term consideration(better seperate with front-end code and back-end code), the latter might be more like the modern approach, which embrace us to a better way for front-end engineering(single page for example).
+For long term consideration(better seperate with front-end code and back-end code), the latter might be more like the modern approach, which embrace us to a better way for front-end engineering(single page app for example).
+
+If you got any idea or quesion, just send an issue here.
